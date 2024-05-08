@@ -1,4 +1,5 @@
 // Write your helper functions here!
+event.preventDefault()
 
 require('cross-fetch/polyfill');
 
@@ -18,11 +19,32 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function validateInput(testInput) {
-    
- }
- 
+    if (testInput === "") {
+          return "Empty";
+    } else if (isNaN(testInput) === true) {
+          return "Not a Number";
+    } else {
+          return "Is a Number";
+    };
+ };  
+
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    
+    let pilotStatus = document.pilotStatus("pilotStatus")
+    let copilotStatus = document.copilotStatus("copilotStatus")
+    let fuelStatus = document.fuelStatus("fuelStatus")
+    let cargoStatus = document.cargoStatus("cargoStatus")
+
+    if (validateInput(pilot)==="Empty" || validateInput(copilot)==="Empty" || validateInput(fuelLevel)==="Empty" || validateInput(cargoLevel)==="Empty"){
+    alert("Error:Field Empty, all fields must be filled out")}
+    else if (validateInput(pilot) ==="Is a Number" || validateInput(copilot)==="Is a Number"){
+        alert("Invalid entry please unsure to enter a name not a number")
+    } else if (validateInput(fuelLevel)==="Not a Number" || validateInput(cargoLevel)==="Not a Number") {
+        alert("Invalid input. Input must be a numberical value")
+    }
+
+    if (fuelLevel < 10000){
+
+    }
  }
  
  async function myFetch() {
