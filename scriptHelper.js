@@ -1,5 +1,5 @@
 // Write your helper functions here!
-event.preventDefault()
+// event.preventDefault()
 
 require('cross-fetch/polyfill');
 
@@ -29,22 +29,60 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  };  
 
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    let pilotStatus = document.pilotStatus("pilotStatus")
-    let copilotStatus = document.copilotStatus("copilotStatus")
-    let fuelStatus = document.fuelStatus("fuelStatus")
-    let cargoStatus = document.cargoStatus("cargoStatus")
+    let pilotStatus = document.getElementById("pilotStatus")
+    let copilotStatus = document.getElementById("copilotStatus")
+    let fuelStatus = document.getElementById("fuelStatus")
+    let cargoStatus = document.getElementById("cargoStatus")
+    let launchStatus = document.getElementById("launchStatus")
 
-    if (validateInput(pilot)==="Empty" || validateInput(copilot)==="Empty" || validateInput(fuelLevel)==="Empty" || validateInput(cargoLevel)==="Empty"){
-    alert("Error:Field Empty, all fields must be filled out")}
+    list.style.visibility = "visible";
+
+// Input Validation //
+    if (validateInput(pilot)==="Empty" || validateInput(copilot)==="Empty" || validateInput(fuelLevel)==="Empty" || validateInput(cargoLevel)==="Empty"){ 
+        alert("Error: Field Empty, all fields must be filled out")}
+
     else if (validateInput(pilot) ==="Is a Number" || validateInput(copilot)==="Is a Number"){
-        alert("Invalid entry please unsure to enter a name not a number")
-    } else if (validateInput(fuelLevel)==="Not a Number" || validateInput(cargoLevel)==="Not a Number") {
-        alert("Invalid input. Input must be a numberical value")
+        alert("Error: Please ensure to enter a valid name")
+
+    } else if (validateInput(cargoLevel)==="Not a Number") {
+        alert("Error: Cargo Mass must be a numberical value")
+    } else if (validateInput(fuelLevel)==="Not a Number") {
+        alert("Error: Fuel Level must be a numberical value")
+    } else {
+        pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`
+        copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`     
     }
 
-    if (fuelLevel < 10000){
+// Display Conformations //
 
+if (fuelLevel >= 10000 && cargoLevel <= 10000) {
+    launchStatus.style.color = 'green'
+    launchStatus.innerHTML = 'Shuttle is Ready for Launch'
+} else {
+    launchStatus.style.color = 'red'
+    launchStatus.innerHTML = 'Shuttle Not Ready for Launch'
+}
+
+    if (fuelLevel >= 10000) {
+         fuelStatus.style.color = 'green'
+         fuelStatus.innerHTML = `Fuel level high enough for launch`
+        }
+
+    if (cargoLevel <= 10000) {
+         cargoStatus.style.color = 'green'
+         cargoStatus.innerHTML = `Cargo mass low enough for launch`
     }
+
+    if (fuelLevel < 10000) {
+        fuelStatus.style.color = 'red'
+        fuelStatus.innerHTML = `Fuel level too low for launch`
+    }
+
+    if (cargoLevel > 10000) {
+        cargoStatus.style.color = 'red'
+        cargoStatus.innerHTML = `Cargo mass too heavy for launch`
+    }
+
  }
  
  async function myFetch() {
