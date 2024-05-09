@@ -31,7 +31,7 @@ window.addEventListener("load", function() {
     let star=destination.star
     let distance=destination.distance
     let moons =destination.moons
-    let imageUrl=destination.imageUrl
+    let imageUrl=destination.image
 
     addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl)
     })
